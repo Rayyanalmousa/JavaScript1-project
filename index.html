@@ -1,7 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
-    <body>
-        <h1>Welcome to My Website</h1>
-        <p>This is a simple HTML page.</p>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AuraMart | Point of Sale</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="logo-mark" title="AuraMart POS">
+          <svg
+            class="pos-logo"
+            viewBox="0 0 64 64"
+            role="img"
+            aria-label="AuraMart Logo"
+          >
+            <rect x="9" y="18" width="46" height="39" rx="12" fill="#107d56" />
+            <path
+              d="M22 22v-6a10 10 0 0 1 20 0v6"
+              stroke="#d1f9df"
+              stroke-width="4"
+              fill="none"
+              stroke-linecap="round"
+            />
+            <path
+              class="logo-leaf"
+              d="M32 45C22 39 21 30 35 27c8-2 13-8 13-8 1 16-4 26-16 26Z"
+              fill="#a7f3c4"
+            />
+            <path
+              d="M29 44c3-6 9-12 16-17"
+              stroke="#107d56"
+              stroke-width="2.2"
+              fill="none"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+
+        <nav class="side-nav" aria-label="Main navigation">
+          <button class="nav-btn active" type="button">
+            <span class="nav-icon">🛒</span>
+            POS
+          </button>
+        </nav>
+
+        <div class="sidebar-bottom">AM</div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-area">
+        <!-- HEADER -->
+        <header class="topbar">
+          <div class="brand">
+            <h1>AuraMart</h1>
+            <span>POINT OF SALE SYSTEM</span>
+          </div>
+
+          <div class="search-box">
+            <span class="search-icon">⌕</span>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search products..."
+              aria-label="Search products"
+            />
+            <small>Ctrl + F</small>
+          </div>
+
+          <div class="header-actions">
+            <div class="cashier-profile">
+              <div class="avatar">C</div>
+              <div>
+                <small>Cashier</small>
+                <strong>Operator</strong>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- WORKSPACE -->
+        <div class="workspace">
+          <!-- PRODUCT SELECTION -->
+          <section class="products-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">CHECKOUT WORKSPACE</p>
+                <h2>Select Products</h2>
+              </div>
+              <span class="product-count">12 Products</span>
+            </div>
+
+            <!-- CATEGORY BUTTONS -->
+            <div class="categories" id="categories">
+              <button
+                class="category-btn active"
+                data-category="All"
+                type="button"
+              >
+                All
+              </button>
+              <button class="category-btn" data-category="Fruits" type="button">
+                🍎 Fruits
+              </button>
+              <button class="category-btn" data-category="Dairy" type="button">
+                🥛 Dairy
+              </button>
+              <button class="category-btn" data-category="Bakery" type="button">
+                🍞 Bakery
+              </button>
+              <button class="category-btn" data-category="Drinks" type="button">
+                🥤 Drinks
+              </button>
+              <button class="category-btn" data-category="Snacks" type="button">
+                🍿 Snacks
+              </button>
+              <button class="category-btn" data-category="Food" type="button">
+                🥗 Food
+              </button>
+            </div>
+
+            <!-- PRODUCTS GRID -->
+            <div class="product-grid" id="productGrid">
+              <article class="product-card" data-category="Fruits">
+                <div class="product-visual apple">🍎</div>
+                <h3>Fresh Apple</h3>
+                <p class="product-price">$0.80 <small>/ pc</small></p>
+                <button class="add-btn" data-id="1" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Fruits">
+                <div class="product-visual banana">🍌</div>
+                <h3>Banana</h3>
+                <p class="product-price">$0.50 <small>/ pc</small></p>
+                <button class="add-btn" data-id="2" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Fruits">
+                <div class="product-visual orange">🍊</div>
+                <h3>Orange</h3>
+                <p class="product-price">$0.70 <small>/ pc</small></p>
+                <button class="add-btn" data-id="3" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Dairy">
+                <div class="product-visual milk">🥛</div>
+                <h3>Milk</h3>
+                <p class="product-price">$1.50 <small>/ pc</small></p>
+                <button class="add-btn" data-id="4" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Bakery">
+                <div class="product-visual bread">🍞</div>
+                <h3>Bread</h3>
+                <p class="product-price">$1.00 <small>/ pc</small></p>
+                <button class="add-btn" data-id="5" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Dairy">
+                <div class="product-visual eggs">🥚</div>
+                <h3>Eggs (6)</h3>
+                <p class="product-price">$2.50 <small>/ box</small></p>
+                <button class="add-btn" data-id="6" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Drinks">
+                <div class="product-visual cola">🥤</div>
+                <h3>Cola</h3>
+                <p class="product-price">$1.20 <small>/ pc</small></p>
+                <button class="add-btn" data-id="7" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Snacks">
+                <div class="product-visual chips">🍿</div>
+                <h3>Potato Chips</h3>
+                <p class="product-price">$1.80 <small>/ bag</small></p>
+                <button class="add-btn" data-id="8" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Food">
+                <div class="product-visual tomato">🍅</div>
+                <h3>Tomato</h3>
+                <p class="product-price">$0.60 <small>/ pc</small></p>
+                <button class="add-btn" data-id="9" type="button">+ Add</button>
+              </article>
+
+              <article class="product-card" data-category="Food">
+                <div class="product-visual potato">🥔</div>
+                <h3>Potato</h3>
+                <p class="product-price">$0.40 <small>/ pc</small></p>
+                <button class="add-btn" data-id="10" type="button">
+                  + Add
+                </button>
+              </article>
+
+              <article class="product-card" data-category="Dairy">
+                <div class="product-visual cheese">🧀</div>
+                <h3>Cheese</h3>
+                <p class="product-price">$3.50 <small>/ pc</small></p>
+                <button class="add-btn" data-id="11" type="button">
+                  + Add
+                </button>
+              </article>
+
+              <article class="product-card" data-category="Drinks">
+                <div class="product-visual water">💧</div>
+                <h3>Water</h3>
+                <p class="product-price">$0.50 <small>/ bottle</small></p>
+                <button class="add-btn" data-id="12" type="button">
+                  + Add
+                </button>
+              </article>
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="quick-actions">
+              <strong>⚡ Quick Actions</strong>
+              <button id="customProductBtn" class="secondary-btn" type="button">
+                + Custom Product
+              </button>
+              <button id="historyBtn" class="secondary-btn" type="button">
+                Sales History
+              </button>
+              <button id="viewBtn" class="secondary-btn" type="button">
+                Compact View
+              </button>
+            </div>
+          </section>
+
+          <!-- CURRENT ORDER -->
+          <section class="order-panel">
+            <div class="order-header">
+              <div>
+                <h2>🛒 Current Order</h2>
+                <span class="order-badge" id="orderCount"> 0 items </span>
+              </div>
+
+              <button id="clearBtn" class="clear-btn" type="button">
+                Clear (F5)
+              </button>
+            </div>
+
+            <div class="order-columns">
+              <span>Product</span>
+              <span>Qty</span>
+              <span>Total</span>
+              <span></span>
+            </div>
+
+            <!-- JS WILL ADD PRODUCTS HERE -->
+            <div id="cartItems" class="cart-items">
+              <div class="empty-cart">
+                <div class="empty-icon">🛒</div>
+                <h3>Your order is empty</h3>
+                <p>Select a product to start a sale.</p>
+              </div>
+            </div>
+
+            <!-- TOTALS -->
+            <div class="order-summary">
+              <div class="summary-row">
+                <span>Total Items</span>
+                <strong id="totalItems">0</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="subtotal">$0.00</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Discount</span>
+                <strong id="discount">$0.00</strong>
+              </div>
+
+              <div class="final-total">
+                <span>Final Amount</span>
+                <strong id="finalTotal">$0.00</strong>
+              </div>
+            </div>
+
+            <!-- PAYMENT -->
+            <div class="payment-area">
+              <label for="amountPaid">Amount Paid ($)</label>
+
+              <input
+                type="number"
+                id="amountPaid"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+              />
+
+              <div class="change-box">
+                <span>Change</span>
+                <strong id="changeAmount">$0.00</strong>
+              </div>
+            </div>
+
+            <button id="completeSaleBtn" class="pay-btn" type="button">
+              Complete Sale (F2)
+            </button>
+
+            <p
+              id="statusMessage"
+              class="status-message"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </section>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+          <span>© AuraMart POS</span>
+          <span>F2 Pay · F5 Clear · Ctrl + F Search</span>
+        </footer>
+      </main>
+    </div>
+
+    <!-- RECEIPT MODAL -->
+    <div class="modal hidden" id="receiptModal">
+      <div
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="receiptTitle"
+      >
+        <h2 id="receiptTitle">Sale Completed!</h2>
+        <p>Thank you for your purchase.</p>
+
+        <div id="receiptContent"></div>
+
+        <button id="newOrderBtn" class="pay-btn" type="button">
+          Start New Order
+        </button>
+      </div>
+    </div>
+
+    <!-- CUSTOM PRODUCT MODAL -->
+    <div class="modal hidden" id="customProductModal">
+      <div
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="customProductTitle"
+      >
+        <h2 id="customProductTitle">Custom Product</h2>
+
+        <label for="customName">Product Name</label>
+        <input type="text" id="customName" placeholder="Enter product name" />
+
+        <label for="customPrice">Price ($)</label>
+        <input
+          type="number"
+          id="customPrice"
+          min="0.01"
+          step="0.01"
+          placeholder="0.00"
+        />
+
+        <button id="saveCustomBtn" class="pay-btn" type="button">
+          Add Product
+        </button>
+        <button id="closeCustomBtn" class="secondary-btn" type="button">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- SALES HISTORY MODAL -->
+    <div class="modal hidden" id="historyModal">
+      <div
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="historyTitle"
+      >
+        <h2 id="historyTitle">Session Sales History</h2>
+
+        <div id="historyContent">No completed sales yet.</div>
+
+        <button id="closeHistoryBtn" class="secondary-btn" type="button">
+          Close
+        </button>
+      </div>
+    </div>
+  </body>
 </html>
