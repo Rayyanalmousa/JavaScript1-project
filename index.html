@@ -8,8 +8,9 @@
   </head>
   <body>
     <div class="leaf-scene" aria-hidden="true">
-      <span>🍃</span><span>🌿</span><span>🍃</span><span>🍂</span><span>🍃</span>
-      <span>🌿</span><span>🍂</span><span>🍃</span><span>🌿</span><span>🍃</span>
+      <span>🍃</span><span>🌿</span><span>🍃</span><span>🍂</span
+      ><span>🍃</span> <span>🌿</span><span>🍂</span><span>🍃</span
+      ><span>🌿</span><span>🍃</span>
     </div>
     <div class="app">
       <!-- SIDEBAR -->
@@ -121,8 +122,12 @@
               <button class="category-btn" data-category="Snacks" type="button">
                 🍿 Snacks
               </button>
-              <button class="category-btn" data-category="Food" type="button">
-                🥗 Food
+              <button
+                class="category-btn"
+                data-category="vegetables"
+                type="button"
+              >
+                🥗 vegetables
               </button>
             </div>
 
@@ -184,14 +189,14 @@
                 <button class="add-btn" data-id="8" type="button">+ Add</button>
               </article>
 
-              <article class="product-card" data-category="Food">
+              <article class="product-card" data-category="vegetables">
                 <div class="product-visual tomato">🍅</div>
                 <h3>Tomato</h3>
                 <p class="product-price">$0.60 <small>/ pc</small></p>
                 <button class="add-btn" data-id="9" type="button">+ Add</button>
               </article>
 
-              <article class="product-card" data-category="Food">
+              <article class="product-card" data-category="vegetables">
                 <div class="product-visual potato">🥔</div>
                 <h3>Potato</h3>
                 <p class="product-price">$0.40 <small>/ pc</small></p>
@@ -366,10 +371,18 @@
           placeholder="0.00"
         />
 
-        <label for="customImage">Product picture <span class="optional-label">(optional)</span></label>
+        <label for="customImage"
+          >Product picture <span class="optional-label">(optional)</span></label
+        >
         <input type="file" id="customImage" accept="image/*" />
-        <img id="customImagePreview" class="custom-image-preview hidden" alt="Selected product preview" />
-        <small class="image-help">Choose a JPG, PNG, or other image up to 5 MB.</small>
+        <img
+          id="customImagePreview"
+          class="custom-image-preview hidden"
+          alt="Selected product preview"
+        />
+        <small class="image-help"
+          >Choose a JPG, PNG, or other image up to 5 MB.</small
+        >
 
         <button id="saveCustomBtn" class="pay-btn" type="button">
           Add Product

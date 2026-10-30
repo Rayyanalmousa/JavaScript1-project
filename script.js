@@ -67,7 +67,7 @@ const products = [
     id: 9,
     name: "Tomato",
     price: 0.6,
-    category: "Food",
+    category: "vegetables",
     icon: "🍅",
     style: "tomato",
   },
@@ -75,7 +75,7 @@ const products = [
     id: 10,
     name: "Potato",
     price: 0.4,
-    category: "Food",
+    category: "vegetables",
     icon: "🥔",
     style: "potato",
   },
@@ -211,7 +211,13 @@ function displayProducts() {
     )}" style="--card-index:${index}">
       <div class="product-visual ${escapeHTML(
         product.style
-      )}" aria-hidden="true">${product.image ? `<img class="product-image" src="${escapeHTML(product.image)}" alt="">` : escapeHTML(product.icon)}</div>
+      )}" aria-hidden="true">${
+            product.image
+              ? `<img class="product-image" src="${escapeHTML(
+                  product.image
+                )}" alt="">`
+              : escapeHTML(product.icon)
+          }</div>
       <h3>${escapeHTML(product.name)}</h3>
       <p class="product-price">${money(product.price)} <small>/ item</small></p>
       <button class="add-btn" data-id="${
@@ -404,7 +410,8 @@ customImageInput.addEventListener("change", () => {
     customImagePreview.classList.remove("hidden");
   });
   reader.addEventListener("error", () => {
-    statusMessage.textContent = "This image could not be opened. Try another one.";
+    statusMessage.textContent =
+      "This image could not be opened. Try another one.";
     customImageInput.value = "";
   });
   reader.readAsDataURL(file);
@@ -415,7 +422,8 @@ document.getElementById("saveCustomBtn").addEventListener("click", () => {
   const name = nameInput.value.trim();
   const price = Number(priceInput.value);
   if (customImageInput.files.length && !customImageData) {
-    statusMessage.textContent = "Wait for the picture preview to finish loading.";
+    statusMessage.textContent =
+      "Wait for the picture preview to finish loading.";
     return;
   }
   if (!name || !Number.isFinite(price) || price <= 0) {
