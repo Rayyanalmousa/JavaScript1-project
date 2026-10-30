@@ -226,6 +226,11 @@ body.dark-mode .product-visual { background: linear-gradient(140deg, #40574a, #4
  .cart-items { max-height: 330px; min-height: 120px; } .order-columns, .cart-row { grid-template-columns: minmax(0, 1fr) 100px 55px 34px; gap: 4px; }
  .qty-btn { min-width: 26px; min-height: 38px; } .remove-btn { width: 34px; height: 38px; } .footer { text-align: center; flex-direction: column; }
 }
+@media (max-width: 700px) {
+  body::before { animation: none; }
+  .leaf-scene span:nth-child(n + 5) { display: none; }
+  .leaf-scene span:nth-child(-n + 4) { --leaf-duration: 24s; font-size: 22px; opacity: .38; }
+}
 @media (max-width: 380px) { .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .product-visual { height: 64px; font-size: 36px; } .product-card h3 { font-size: 13px; } .product-card { padding: 7px; } .order-columns, .cart-row { grid-template-columns: minmax(0, 1fr) 88px 48px 30px; gap: 2px; } .qty-btn { min-width: 22px; } .remove-btn { width: 30px; } }
 @media print {
   body * { visibility: hidden !important; }
