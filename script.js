@@ -1,101 +1,230 @@
+/* ==========================================
+   AURAMART POS - OOP VERSION
+   Vanilla JavaScript
+========================================== */
+
+// ==========================================
+// PRODUCT CLASS
+// OOP: Class, Constructor, this, Methods
+// ==========================================
+
+class Product {
+  constructor(id, name, price, category, icon, style) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.category = category;
+    this.icon = icon;
+    this.style = style;
+  }
+
+  getVisualHTML() {
+    return escapeHTML(this.icon);
+  }
+}
+
+// ==========================================
+// CUSTOM PRODUCT
+// OOP: Inheritance and Polymorphism
+// ==========================================
+
+class CustomProduct extends Product {
+  constructor(id, name, price, image) {
+    super(id, name, price, "Custom", "🛍️", "custom");
+    this.image = image;
+  }
+
+  getVisualHTML() {
+    if (this.image) {
+      return `<img class="product-image"
+        src="${escapeHTML(this.image)}" alt="">`;
+    }
+
+    return escapeHTML(this.icon);
+  }
+}
+
+// ==========================================
+// PRODUCTS
+// OOP: Objects created using new
+// ==========================================
+
 const products = [
-  {
-    id: 1,
-    name: "Fresh Apple",
-    price: 0.8,
-    category: "Fruits",
-    icon: "🍎",
-    style: "apple",
-  },
-  {
-    id: 2,
-    name: "Banana",
-    price: 0.5,
-    category: "Fruits",
-    icon: "🍌",
-    style: "banana",
-  },
-  {
-    id: 3,
-    name: "Orange",
-    price: 0.7,
-    category: "Fruits",
-    icon: "🍊",
-    style: "orange",
-  },
-  {
-    id: 4,
-    name: "Milk",
-    price: 1.5,
-    category: "Dairy",
-    icon: "🥛",
-    style: "milk",
-  },
-  {
-    id: 5,
-    name: "Bread",
-    price: 1,
-    category: "Bakery",
-    icon: "🍞",
-    style: "bread",
-  },
-  {
-    id: 6,
-    name: "Eggs (6)",
-    price: 2.5,
-    category: "Dairy",
-    icon: "🥚",
-    style: "eggs",
-  },
-  {
-    id: 7,
-    name: "Cola",
-    price: 1.2,
-    category: "Drinks",
-    icon: "🥤",
-    style: "cola",
-  },
-  {
-    id: 8,
-    name: "Potato Chips",
-    price: 1.8,
-    category: "Snacks",
-    icon: "🍿",
-    style: "chips",
-  },
-  {
-    id: 9,
-    name: "Tomato",
-    price: 0.6,
-    category: "Vegetables",
-    icon: "🍅",
-    style: "tomato",
-  },
-  {
-    id: 10,
-    name: "Potato",
-    price: 0.4,
-    category: "Vegetables",
-    icon: "🥔",
-    style: "potato",
-  },
-  {
-    id: 11,
-    name: "Cheese",
-    price: 3.5,
-    category: "Dairy",
-    icon: "🧀",
-    style: "cheese",
-  },
-  {
-    id: 12,
-    name: "Water",
-    price: 0.5,
-    category: "Drinks",
-    icon: "💧",
-    style: "water",
-  },
+  new Product(1, "Fresh Apple", 0.8, "Fruits", "🍎", "apple"),
+  new Product(2, "Banana", 0.5, "Fruits", "🍌", "banana"),
+  new Product(3, "Orange", 0.7, "Fruits", "🍊", "orange"),
+  new Product(4, "Milk", 1.5, "Dairy", "🥛", "milk"),
+  new Product(5, "Bread", 1, "Bakery", "🍞", "bread"),
+  new Product(6, "Eggs (6)", 2.5, "Dairy", "🥚", "eggs"),
+  new Product(7, "Cola", 1.2, "Drinks", "🥤", "cola"),
+  new Product(8, "Potato Chips", 1.8, "Snacks", "🍿", "chips"),
+  new Product(9, "Tomato", 0.6, "Vegetables", "🍅", "tomato"),
+  new Product(10, "Potato", 0.4, "Vegetables", "🥔", "potato"),
+  new Product(11, "Cheese", 3.5, "Dairy", "🧀", "cheese"),
+  new Product(12, "Water", 0.5, "Drinks", "💧", "water"),
 ];
+
+// ==========================================
+// ORDER LINE
+// OOP: Composition
+// ==========================================
+
+class OrderLine {
+  constructor(product, quantity = 1) {
+    this.product = product;
+    this.quantity = quantity;
+  }
+
+  getSubtotal() {
+    return this.product.price * this.quantity;
+  }
+}
+
+// ==========================================
+// ORDER CLASS
+// OOP: Encapsulation, Composition, Abstraction
+// ==========================================
+
+class Order {
+  #lines = [];
+
+  getLines() {
+    return this.#lines;
+  }
+
+  /*
+  OLD CODE USING find():
+
+  const existing = cart.find(
+    (item) => item.id === product.id
+  );
+  */
+
+  findLine(id) {
+    for (let i = 0; i < this.#lines.length; i++) {
+      if (this.#lines[i].product.id === Number(id)) {
+        return this.#lines[i];
+      }
+    }
+
+    return null;
+  }
+
+  addProduct(product) {
+    const existing = this.findLine(product.id);
+
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      this.#lines.push(new OrderLine(product));
+    }
+  }
+
+  increaseQuantity(id) {
+    const line = this.findLine(id);
+
+    if (line) {
+      line.quantity += 1;
+    }
+  }
+
+  decreaseQuantity(id) {
+    const line = this.findLine(id);
+
+    if (!line) {
+      return;
+    }
+
+    line.quantity -= 1;
+
+    if (line.quantity <= 0) {
+      this.removeProduct(id);
+    }
+  }
+
+  /*
+  OLD CODE USING filter():
+
+  cart = cart.filter(
+    (item) => item.id !== Number(id)
+  );
+  */
+
+  removeProduct(id) {
+    const updatedLines = [];
+
+    for (let i = 0; i < this.#lines.length; i++) {
+      if (this.#lines[i].product.id !== Number(id)) {
+        updatedLines.push(this.#lines[i]);
+      }
+    }
+
+    this.#lines = updatedLines;
+  }
+
+  clear() {
+    this.#lines = [];
+  }
+
+  isEmpty() {
+    return this.#lines.length === 0;
+  }
+
+  /*
+  OLD CODE USING reduce():
+
+  const count = cart.reduce(
+    (sum, item) => sum + item.quantity, 0
+  );
+
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
+  );
+  */
+
+  getTotals() {
+    let count = 0;
+    let subtotal = 0;
+
+    for (let i = 0; i < this.#lines.length; i++) {
+      const line = this.#lines[i];
+
+      count += line.quantity;
+      subtotal += line.getSubtotal();
+    }
+
+    const discount = subtotal > 100 ? subtotal * 0.1 : 0;
+    const total = subtotal - discount;
+
+    return {
+      count: count,
+      subtotal: subtotal,
+      discount: discount,
+      total: total,
+    };
+  }
+
+  getPurchasedItems() {
+    const items = [];
+
+    for (let i = 0; i < this.#lines.length; i++) {
+      const line = this.#lines[i];
+
+      items.push({
+        id: line.product.id,
+        name: line.product.name,
+        price: line.product.price,
+        quantity: line.quantity,
+      });
+    }
+
+    return items;
+  }
+}
+
+// ==========================================
+// DOM ELEMENTS
+// ==========================================
 
 const productGrid = document.getElementById("productGrid");
 const cartItems = document.getElementById("cartItems");
@@ -109,30 +238,68 @@ const customImageInput = document.getElementById("customImage");
 const customImagePreview = document.getElementById("customImagePreview");
 const historyModal = document.getElementById("historyModal");
 
+// ==========================================
+// APPLICATION DATA
+// ==========================================
+
+const order = new Order();
 const saleHistory = [];
-let cart = [];
+
 let activeCategory = "All";
 let compactMode = false;
 let nextProductId = 13;
 let customImageData = "";
 
-const money = (value) => `$${value.toFixed(2)}`;
+// ==========================================
+// HELPER FUNCTIONS
+// ==========================================
 
-const escapeHTML = (value) =>
-  String(value).replace(
-    /[&<>"']/g,
-    (char) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;",
-      }[char])
-  );
+function money(value) {
+  return `$${value.toFixed(2)}`;
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, (char) => {
+    const characters = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+
+    return characters[char];
+  });
+}
+
+// ==========================================
+// FIND PRODUCT
+// ==========================================
 
 /*
 OLD CODE:
+
+const product = products.find(
+  (item) => item.id === Number(id)
+);
+*/
+
+function findProduct(id) {
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id === Number(id)) {
+      return products[i];
+    }
+  }
+
+  return null;
+}
+
+// ==========================================
+// DISPLAY PRODUCTS
+// ==========================================
+
+/*
+OLD CODE USING filter():
 
 const filtered = products.filter((product) => {
   const matchesCategory =
@@ -166,13 +333,9 @@ function displayProducts() {
     }
   }
 
-  const productCount = document.querySelector(".product-count");
-
-  if (productCount) {
-    productCount.textContent = `${filtered.length} ${
-      filtered.length === 1 ? "Product" : "Products"
-    }`;
-  }
+  document.querySelector(".product-count").textContent = `${filtered.length} ${
+    filtered.length === 1 ? "Product" : "Products"
+  }`;
 
   productGrid.innerHTML = filtered.length
     ? filtered
@@ -184,18 +347,14 @@ function displayProducts() {
 
         <div class="product-visual ${escapeHTML(product.style)}"
           aria-hidden="true">
-          ${
-            product.image
-              ? `<img class="product-image"
-                   src="${escapeHTML(product.image)}" alt="">`
-              : escapeHTML(product.icon)
-          }
+          ${product.getVisualHTML()}
         </div>
 
         <h3>${escapeHTML(product.name)}</h3>
 
         <p class="product-price">
-          ${money(product.price)} <small>/ item</small>
+          ${money(product.price)}
+          <small>/ item</small>
         </p>
 
         <button class="add-btn"
@@ -216,40 +375,13 @@ function displayProducts() {
     `;
 }
 
-/*
-
-
-const count = cart.reduce(
-  (sum, item) => sum + item.quantity, 0
-);
-
-const subtotal = cart.reduce(
-  (sum, item) => sum + item.price * item.quantity, 0
-);
-*/
-
-function calculateTotals() {
-  let count = 0;
-  let subtotal = 0;
-
-  for (let i = 0; i < cart.length; i++) {
-    count += cart[i].quantity;
-    subtotal += cart[i].price * cart[i].quantity;
-  }
-
-  const discount = subtotal > 100 ? subtotal * 0.1 : 0;
-  const total = subtotal - discount;
-
-  return {
-    count: count,
-    subtotal: subtotal,
-    discount: discount,
-    total: total,
-  };
-}
+// ==========================================
+// RENDER CART
+// ==========================================
 
 function renderCart() {
-  const totals = calculateTotals();
+  const totals = order.getTotals();
+  const lines = order.getLines();
 
   document.getElementById("orderCount").textContent = `${totals.count} ${
     totals.count === 1 ? "item" : "items"
@@ -264,51 +396,52 @@ function renderCart() {
     Math.max(0, Number(amountPaid.value || 0) - totals.total)
   );
 
-  document.getElementById("completeSaleBtn").disabled = cart.length === 0;
+  document.getElementById("completeSaleBtn").disabled = order.isEmpty();
 
-  cartItems.innerHTML = cart.length
-    ? cart
+  cartItems.innerHTML = lines.length
+    ? lines
         .map(
-          (item) => `
+          (line) => `
       <div class="cart-row">
 
         <div>
           <div class="cart-product-name">
-            ${escapeHTML(item.name)}
+            ${escapeHTML(line.product.name)}
           </div>
           <div class="cart-unit-price">
-            ${money(item.price)} each
+            ${money(line.product.price)} each
           </div>
         </div>
 
         <div class="quantity-control">
           <button class="qty-btn"
             data-action="decrease"
-            data-id="${item.id}"
-            aria-label="Decrease ${escapeHTML(item.name)} quantity">
+            data-id="${line.product.id}"
+            aria-label="Decrease ${escapeHTML(line.product.name)} quantity">
             −
           </button>
 
-          <span>${item.quantity}</span>
+          <span>${line.quantity}</span>
 
           <button class="qty-btn"
             data-action="increase"
-            data-id="${item.id}"
-            aria-label="Increase ${escapeHTML(item.name)} quantity">
+            data-id="${line.product.id}"
+            aria-label="Increase ${escapeHTML(line.product.name)} quantity">
             +
           </button>
         </div>
 
         <div class="cart-line-total">
-          ${money(item.price * item.quantity)}
+          ${money(line.getSubtotal())}
         </div>
 
         <button class="remove-btn"
           data-action="remove"
-          data-id="${item.id}"
-          aria-label="Remove ${escapeHTML(item.name)}">
+          data-id="${line.product.id}"
+          aria-label="Remove ${escapeHTML(line.product.name)}">
           ×
         </button>
+
       </div>
     `
         )
@@ -322,12 +455,20 @@ function renderCart() {
     `;
 }
 
+// ==========================================
+// CLEAR ORDER
+// ==========================================
+
 function clearOrder() {
-  cart = [];
+  order.clear();
   amountPaid.value = "";
   statusMessage.textContent = "Order cleared.";
   renderCart();
 }
+
+// ==========================================
+// PRODUCT ANIMATION
+// ==========================================
 
 function animateProductToCart(id, sourceButton) {
   if (
@@ -365,6 +506,12 @@ function animateProductToCart(id, sourceButton) {
 
   flyer.style.setProperty(
     "--fly-y",
+    `${end.top + end.height / 2 - (start.top + start.width / 2)}px`
+  );
+
+  // Correct target movement for the animation
+  flyer.style.setProperty(
+    "--fly-y",
     `${end.top + end.height / 2 - (start.top + start.height / 2)}px`
   );
 
@@ -386,37 +533,9 @@ function animateProductToCart(id, sourceButton) {
   window.setTimeout(() => flyer.remove(), 850);
 }
 
-/*
-
-
-const product = products.find(
-  (item) => item.id === Number(id)
-);
-
-const existing = cart.find(
-  (item) => item.id === product.id
-);
-*/
-
-function findProduct(id) {
-  for (let i = 0; i < products.length; i++) {
-    if (products[i].id === Number(id)) {
-      return products[i];
-    }
-  }
-
-  return null;
-}
-
-function findCartItem(id) {
-  for (let i = 0; i < cart.length; i++) {
-    if (cart[i].id === Number(id)) {
-      return cart[i];
-    }
-  }
-
-  return null;
-}
+// ==========================================
+// ADD PRODUCT TO CART
+// ==========================================
 
 function addToCart(id, sourceButton) {
   const product = findProduct(id);
@@ -427,28 +546,7 @@ function addToCart(id, sourceButton) {
 
   animateProductToCart(id, sourceButton);
 
-  const existing = findCartItem(product.id);
-
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    /*
-
-
-    cart.push({ ...product, quantity: 1 });
-    */
-
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      category: product.category,
-      icon: product.icon,
-      style: product.style,
-      image: product.image || "",
-      quantity: 1,
-    });
-  }
+  order.addProduct(product);
 
   const cartTitle = document.querySelector(".order-header h2");
 
@@ -459,6 +557,7 @@ function addToCart(id, sourceButton) {
   }
 
   statusMessage.textContent = `${product.name} added to order`;
+
   renderCart();
 
   window.setTimeout(() => {
@@ -467,6 +566,10 @@ function addToCart(id, sourceButton) {
     }
   }, 1800);
 }
+
+// ==========================================
+// MODALS
+// ==========================================
 
 function showModal(modal) {
   modal.classList.remove("hidden");
@@ -477,6 +580,10 @@ function hideModal(modal) {
   modal.classList.add("hidden");
 }
 
+// ==========================================
+// ADD BUTTON EVENT
+// ==========================================
+
 productGrid.addEventListener("click", (event) => {
   const button = event.target.closest(".add-btn");
 
@@ -485,6 +592,10 @@ productGrid.addEventListener("click", (event) => {
   }
 });
 
+// ==========================================
+// CART BUTTON EVENTS
+// ==========================================
+
 cartItems.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
 
@@ -492,40 +603,26 @@ cartItems.addEventListener("click", (event) => {
     return;
   }
 
-  const item = findCartItem(button.dataset.id);
-
-  if (!item) {
-    return;
-  }
+  const id = Number(button.dataset.id);
 
   if (button.dataset.action === "increase") {
-    item.quantity += 1;
+    order.increaseQuantity(id);
   }
 
   if (button.dataset.action === "decrease") {
-    item.quantity -= 1;
+    order.decreaseQuantity(id);
   }
 
-  if (button.dataset.action === "remove" || item.quantity <= 0) {
-    /*
-
-
-    cart = cart.filter((entry) => entry.id !== item.id);
-    */
-
-    const updatedCart = [];
-
-    for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id !== item.id) {
-        updatedCart.push(cart[i]);
-      }
-    }
-
-    cart = updatedCart;
+  if (button.dataset.action === "remove") {
+    order.removeProduct(id);
   }
 
   renderCart();
 });
+
+// ==========================================
+// CATEGORIES
+// ==========================================
 
 document.getElementById("categories").addEventListener("click", (event) => {
   const button = event.target.closest(".category-btn");
@@ -537,7 +634,7 @@ document.getElementById("categories").addEventListener("click", (event) => {
   activeCategory = button.dataset.category;
 
   /*
- using es6 favourite method
+  OLD CODE USING forEach():
 
   document.querySelectorAll(".category-btn").forEach(
     (item) => item.classList.toggle("active", item === button)
@@ -553,8 +650,16 @@ document.getElementById("categories").addEventListener("click", (event) => {
   displayProducts();
 });
 
+// ==========================================
+// SEARCH AND PAYMENT INPUTS
+// ==========================================
+
 searchInput.addEventListener("input", displayProducts);
 amountPaid.addEventListener("input", renderCart);
+
+// ==========================================
+// CLEAR CONFIRMATION
+// ==========================================
 
 document.getElementById("clearBtn").addEventListener("click", () => {
   showModal(clearConfirmModal);
@@ -569,6 +674,10 @@ document.getElementById("cancelClearBtn").addEventListener("click", () => {
   hideModal(clearConfirmModal);
 });
 
+// ==========================================
+// COMPACT VIEW
+// ==========================================
+
 document.getElementById("viewBtn").addEventListener("click", (event) => {
   compactMode = !compactMode;
 
@@ -579,6 +688,10 @@ document.getElementById("viewBtn").addEventListener("click", (event) => {
     : "Compact View";
 });
 
+// ==========================================
+// DARK MODE
+// ==========================================
+
 document.getElementById("darkModeBtn").addEventListener("click", (event) => {
   const enabled = document.body.classList.toggle("dark-mode");
 
@@ -587,6 +700,10 @@ document.getElementById("darkModeBtn").addEventListener("click", (event) => {
   event.currentTarget.setAttribute("aria-pressed", String(enabled));
 });
 
+// ==========================================
+// CUSTOM PRODUCT MODAL
+// ==========================================
+
 document.getElementById("customProductBtn").addEventListener("click", () => {
   showModal(customProductModal);
 });
@@ -594,6 +711,10 @@ document.getElementById("customProductBtn").addEventListener("click", () => {
 document.getElementById("closeCustomBtn").addEventListener("click", () => {
   hideModal(customProductModal);
 });
+
+// ==========================================
+// CUSTOM PRODUCT IMAGE
+// ==========================================
 
 customImageInput.addEventListener("change", () => {
   const file = customImageInput.files[0];
@@ -614,6 +735,7 @@ customImageInput.addEventListener("change", () => {
 
   if (file.size > 5 * 1024 * 1024) {
     statusMessage.textContent = "Please choose an image smaller than 5 MB.";
+
     customImageInput.value = "";
     return;
   }
@@ -636,6 +758,10 @@ customImageInput.addEventListener("change", () => {
   reader.readAsDataURL(file);
 });
 
+// ==========================================
+// SAVE CUSTOM PRODUCT
+// ==========================================
+
 document.getElementById("saveCustomBtn").addEventListener("click", () => {
   const nameInput = document.getElementById("customName");
   const priceInput = document.getElementById("customPrice");
@@ -655,29 +781,16 @@ document.getElementById("saveCustomBtn").addEventListener("click", () => {
     return;
   }
 
-  const newProduct = {
-    id: nextProductId++,
-    name: name,
-    price: price,
-    category: "Custom",
-    icon: "🛍️",
-    style: "custom",
-    image: customImageData,
-  };
+  const newProduct = new CustomProduct(
+    nextProductId++,
+    name,
+    price,
+    customImageData
+  );
 
   products.push(newProduct);
 
   activeCategory = "All";
-
-  /*
-
-
-  document.querySelectorAll(".category-btn").forEach(
-    (item) => item.classList.toggle(
-      "active", item.dataset.category === "All"
-    )
-  );
-  */
 
   const buttons = document.querySelectorAll(".category-btn");
 
@@ -700,6 +813,10 @@ document.getElementById("saveCustomBtn").addEventListener("click", () => {
   displayProducts();
   addToCart(newProduct.id);
 });
+
+// ==========================================
+// SALES HISTORY
+// ==========================================
 
 document.getElementById("historyBtn").addEventListener("click", () => {
   const historyContent = document.getElementById("historyContent");
@@ -725,14 +842,18 @@ document.getElementById("closeHistoryBtn").addEventListener("click", () => {
   hideModal(historyModal);
 });
 
+// ==========================================
+// COMPLETE SALE
+// ==========================================
+
 document.getElementById("completeSaleBtn").addEventListener("click", () => {
-  if (cart.length === 0) {
+  if (order.isEmpty()) {
     statusMessage.textContent =
       "Add at least one product before completing the sale.";
     return;
   }
 
-  const totals = calculateTotals();
+  const totals = order.getTotals();
   const paid = Number(amountPaid.value);
 
   if (
@@ -747,25 +868,6 @@ document.getElementById("completeSaleBtn").addEventListener("click", () => {
     return;
   }
 
-  /*
-  OLD CODE:
-
-  const purchasedItems = cart.map((item) => ({ ...item }));
-  */
-
-  const purchasedItems = [];
-
-  for (let i = 0; i < cart.length; i++) {
-    const item = cart[i];
-
-    purchasedItems.push({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity,
-    });
-  }
-
   const sale = {
     date: Date.now(),
     count: totals.count,
@@ -774,7 +876,7 @@ document.getElementById("completeSaleBtn").addEventListener("click", () => {
     total: totals.total,
     paid: paid,
     change: paid - totals.total,
-    items: purchasedItems,
+    items: order.getPurchasedItems(),
   };
 
   saleHistory.unshift(sale);
@@ -802,22 +904,22 @@ document.getElementById("completeSaleBtn").addEventListener("click", () => {
 
     <div class="receipt-total">
       <span>Subtotal</span>
-      <strong>${money(totals.subtotal)}</strong>
+      <strong>${money(sale.subtotal)}</strong>
     </div>
 
     <div class="receipt-total">
       <span>Discount</span>
-      <strong>${money(totals.discount)}</strong>
+      <strong>${money(sale.discount)}</strong>
     </div>
 
     <div class="receipt-total">
       <span>Final amount</span>
-      <strong>${money(totals.total)}</strong>
+      <strong>${money(sale.total)}</strong>
     </div>
 
     <div class="receipt-total">
       <span>Amount paid</span>
-      <strong>${money(paid)}</strong>
+      <strong>${money(sale.paid)}</strong>
     </div>
 
     <div class="receipt-total">
@@ -829,10 +931,14 @@ document.getElementById("completeSaleBtn").addEventListener("click", () => {
   showModal(receiptModal);
 });
 
+// ==========================================
+// NEW ORDER
+// ==========================================
+
 document.getElementById("newOrderBtn").addEventListener("click", () => {
   hideModal(receiptModal);
 
-  cart = [];
+  order.clear();
   amountPaid.value = "";
 
   statusMessage.textContent = "Sale completed. Ready for the next order.";
@@ -841,7 +947,7 @@ document.getElementById("newOrderBtn").addEventListener("click", () => {
 });
 
 /*
-OLD CODE USING forEach():
+
 
 [receiptModal, clearConfirmModal, customProductModal, historyModal]
   .forEach((modal) => {
@@ -873,14 +979,6 @@ document.getElementById("receiptPrintBtn").addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (event) => {
-  /*
-  OLD CODE:
-
-  if (event.key === "Escape") {
-    modals.forEach(hideModal);
-  }
-  */
-
   if (event.key === "Escape") {
     for (let i = 0; i < modals.length; i++) {
       hideModal(modals[i]);
