@@ -31,6 +31,11 @@ button:disabled { opacity: .52; cursor: not-allowed; }
 .leaf-scene span:nth-child(3) { --leaf-left: 51%; --leaf-size: 32px; --leaf-duration: 20s; --leaf-delay: -8s; --leaf-sway-a: 26px; --leaf-sway-b: -20px; --leaf-sway-c: 32px; --leaf-sway: 58px; }
 .leaf-scene span:nth-child(4) { --leaf-left: 73%; --leaf-size: 25px; --leaf-duration: 25s; --leaf-delay: -16s; --leaf-sway-a: -32px; --leaf-sway-b: 24px; --leaf-sway-c: -39px; --leaf-sway: -70px; }
 .leaf-scene span:nth-child(5) { --leaf-left: 91%; --leaf-size: 29px; --leaf-duration: 22s; --leaf-delay: -10s; --leaf-sway-a: 24px; --leaf-sway-b: -19px; --leaf-sway-c: 29px; --leaf-sway: 52px; }
+.leaf-scene span:nth-child(6) { --leaf-left: 15%; --leaf-size: 22px; --leaf-duration: 24s; --leaf-delay: -19s; --leaf-sway-a: -20px; --leaf-sway-b: 16px; --leaf-sway-c: -25px; --leaf-sway: -44px; }
+.leaf-scene span:nth-child(7) { --leaf-left: 39%; --leaf-size: 27px; --leaf-duration: 19s; --leaf-delay: -7s; --leaf-sway-a: 27px; --leaf-sway-b: -21px; --leaf-sway-c: 33px; --leaf-sway: 60px; }
+.leaf-scene span:nth-child(8) { --leaf-left: 60%; --leaf-size: 21px; --leaf-duration: 26s; --leaf-delay: -15s; --leaf-sway-a: -24px; --leaf-sway-b: 18px; --leaf-sway-c: -29px; --leaf-sway: -52px; }
+.leaf-scene span:nth-child(9) { --leaf-left: 83%; --leaf-size: 30px; --leaf-duration: 21s; --leaf-delay: -11s; --leaf-sway-a: 30px; --leaf-sway-b: -23px; --leaf-sway-c: 36px; --leaf-sway: 65px; }
+.leaf-scene span:nth-child(10) { --leaf-left: 47%; --leaf-size: 23px; --leaf-duration: 28s; --leaf-delay: -22s; --leaf-sway-a: -21px; --leaf-sway-b: 16px; --leaf-sway-c: -26px; --leaf-sway: -46px; }
 @keyframes leaf-fall { 0% { transform: translate3d(0, -8vh, 0) rotate(0deg); } 25% { transform: translate3d(var(--leaf-sway-a), 28vh, 0) rotate(110deg); } 50% { transform: translate3d(var(--leaf-sway-b), 58vh, 0) rotate(230deg); } 75% { transform: translate3d(var(--leaf-sway-c), 88vh, 0) rotate(350deg); } 100% { transform: translate3d(var(--leaf-sway), 118vh, 0) rotate(500deg); } }
 .sidebar { width: 88px; flex-shrink: 0; background: linear-gradient(180deg, #122a23, #10211f); color: white; display: flex; flex-direction: column; align-items: center; padding: 20px 10px; }
 .main-area { flex: 1; min-width: 0; display: flex; flex-direction: column; }
@@ -78,6 +83,7 @@ button:disabled { opacity: .52; cursor: not-allowed; }
 .product-card:hover { transform: translateY(-4px); box-shadow: 0 11px 24px #102b1b16; border-color: #94d7b1; }
 .product-card:focus-within { border-color: var(--green); }
 .product-visual { height: 108px; background: linear-gradient(140deg, #e9f6eb, #f8eee2); border-radius: 12px; display: grid; place-items: center; font-size: 60px; margin-bottom: 12px; transition: transform .25s; }
+.product-image { display: block; width: 100%; height: 100%; padding: 8px; object-fit: contain; border-radius: inherit; }
 .product-card:hover .product-visual { transform: scale(1.025); }
 .apple { background: linear-gradient(135deg, #ffe9e7, #f6eeee); } .banana { background: linear-gradient(135deg, #fff6d6, #fff9e9); } .orange { background: linear-gradient(135deg, #ffeedb, #fff6e9); } .milk, .water { background: linear-gradient(135deg, #e1f2ff, #f4f9ff); } .bread, .potato { background: linear-gradient(135deg, #f6e6d5, #fff3e6); } .eggs, .cheese { background: linear-gradient(135deg, #fff2d7, #f7f1e4); } .cola, .chips { background: linear-gradient(135deg, #f5e8dc, #fff1e5); } .tomato { background: linear-gradient(135deg, #ffe1db, #fff1ec); } .custom { background: linear-gradient(135deg, #ede7ff, #f5efff); }
 .product-card h3 { margin: 0 0 5px; font-size: 16px; line-height: 1.3; }
@@ -149,7 +155,11 @@ button:disabled { opacity: .52; cursor: not-allowed; }
 .modal-content { width: 100%; max-width: 440px; max-height: 90vh; overflow-y: auto; background: var(--surface); padding: 28px; border-radius: 20px; box-shadow: 0 25px 80px #0004; }
 .modal-content h2 { margin-top: 0; }
 .modal-content > label { display: block; margin: 16px 0 7px; font-weight: 700; }
+.optional-label, .image-help { color: var(--muted); font-size: 12px; font-weight: 400; }
 .modal-content > input { width: 100%; border: 1px solid var(--border); background: var(--surface-soft); color: var(--text); border-radius: 10px; padding: 13px; }
+.modal-content > input[type="file"] { padding: 9px; font-size: 13px; }
+.custom-image-preview { display: block; width: 100%; max-height: 150px; margin-top: 10px; padding: 8px; object-fit: contain; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-soft); }
+.image-help { display: block; margin-top: 6px; }
 .modal-content > .secondary-btn { width: 100%; margin-top: 10px; }
 .modal:not(.hidden) .modal-content { animation: modal-enter .22s ease-out both; }
 @keyframes modal-enter { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }

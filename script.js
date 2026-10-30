@@ -104,6 +104,8 @@ const amountPaid = document.getElementById("amountPaid");
 const statusMessage = document.getElementById("statusMessage");
 const receiptModal = document.getElementById("receiptModal");
 const customProductModal = document.getElementById("customProductModal");
+const customImageInput = document.getElementById("customImage");
+const customImagePreview = document.getElementById("customImagePreview");
 const historyModal = document.getElementById("historyModal");
 const saleHistory = [];
 let cart = [];
@@ -111,6 +113,7 @@ let activeCategory = "All";
 let compactMode = false;
 let discountRate = 0;
 let nextProductId = 13;
+let customImageData = "";
 
 const money = (value) => `$${value.toFixed(2)}`;
 const escapeHTML = (value) =>
@@ -208,7 +211,7 @@ function displayProducts() {
     )}" style="--card-index:${index}">
       <div class="product-visual ${escapeHTML(
         product.style
-      )}" aria-hidden="true">${escapeHTML(product.icon)}</div>
+      )}" aria-hidden="true">${product.image ? `<img class="product-image" src="${escapeHTML(product.image)}" alt="">` : escapeHTML(product.icon)}</div>
       <h3>${escapeHTML(product.name)}</h3>
       <p class="product-price">${money(product.price)} <small>/ item</small></p>
       <button class="add-btn" data-id="${
@@ -378,11 +381,43 @@ document
 document
   .getElementById("closeCustomBtn")
   .addEventListener("click", () => hideModal(customProductModal));
+customImageInput.addEventListener("change", () => {
+  const file = customImageInput.files[0];
+  customImageData = "";
+  customImagePreview.removeAttribute("src");
+  customImagePreview.classList.add("hidden");
+  if (!file) return;
+  if (!file.type.startsWith("image/")) {
+    statusMessage.textContent = "Choose an image file.";
+    customImageInput.value = "";
+    return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    statusMessage.textContent = "Please choose an image smaller than 5 MB.";
+    customImageInput.value = "";
+    return;
+  }
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    customImageData = reader.result;
+    customImagePreview.src = customImageData;
+    customImagePreview.classList.remove("hidden");
+  });
+  reader.addEventListener("error", () => {
+    statusMessage.textContent = "This image could not be opened. Try another one.";
+    customImageInput.value = "";
+  });
+  reader.readAsDataURL(file);
+});
 document.getElementById("saveCustomBtn").addEventListener("click", () => {
   const nameInput = document.getElementById("customName");
   const priceInput = document.getElementById("customPrice");
   const name = nameInput.value.trim();
   const price = Number(priceInput.value);
+  if (customImageInput.files.length && !customImageData) {
+    statusMessage.textContent = "Wait for the picture preview to finish loading.";
+    return;
+  }
   if (!name || !Number.isFinite(price) || price <= 0) {
     statusMessage.textContent =
       "Enter a product name and a price greater than zero.";
@@ -393,8 +428,9 @@ document.getElementById("saveCustomBtn").addEventListener("click", () => {
     name,
     price,
     category: "Custom",
-    icon: "✨",
+    icon: "🛍️",
     style: "custom",
+    image: customImageData,
   });
   activeCategory = "All";
   document
@@ -404,6 +440,10 @@ document.getElementById("saveCustomBtn").addEventListener("click", () => {
     );
   nameInput.value = "";
   priceInput.value = "";
+  customImageInput.value = "";
+  customImageData = "";
+  customImagePreview.removeAttribute("src");
+  customImagePreview.classList.add("hidden");
   hideModal(customProductModal);
   displayProducts();
   addToCart(products.at(-1).id);

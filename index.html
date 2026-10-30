@@ -9,6 +9,7 @@
   <body>
     <div class="leaf-scene" aria-hidden="true">
       <span>🍃</span><span>🌿</span><span>🍃</span><span>🍂</span><span>🍃</span>
+      <span>🌿</span><span>🍂</span><span>🍃</span><span>🌿</span><span>🍃</span>
     </div>
     <div class="app">
       <!-- SIDEBAR -->
@@ -364,6 +365,11 @@
           step="0.01"
           placeholder="0.00"
         />
+
+        <label for="customImage">Product picture <span class="optional-label">(optional)</span></label>
+        <input type="file" id="customImage" accept="image/*" />
+        <img id="customImagePreview" class="custom-image-preview hidden" alt="Selected product preview" />
+        <small class="image-help">Choose a JPG, PNG, or other image up to 5 MB.</small>
 
         <button id="saveCustomBtn" class="pay-btn" type="button">
           Add Product
