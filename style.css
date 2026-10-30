@@ -164,6 +164,7 @@ button:disabled { opacity: .52; cursor: not-allowed; }
 .modal:not(.hidden) .modal-content { animation: modal-enter .22s ease-out both; }
 @keyframes modal-enter { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 #receiptContent { margin: 19px 0 5px; }
+.receipt-date { color: var(--muted); text-align: center; font-size: 12px; }
 .receipt-lines { border-top: 1px solid var(--border); }
 .receipt-lines > div, .receipt-total { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
 .receipt-total { border: 0; padding-bottom: 2px; }
@@ -226,4 +227,11 @@ body.dark-mode .product-visual { background: linear-gradient(140deg, #40574a, #4
  .qty-btn { min-width: 26px; min-height: 38px; } .remove-btn { width: 34px; height: 38px; } .footer { text-align: center; flex-direction: column; }
 }
 @media (max-width: 380px) { .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .product-visual { height: 64px; font-size: 36px; } .product-card h3 { font-size: 13px; } .product-card { padding: 7px; } .order-columns, .cart-row { grid-template-columns: minmax(0, 1fr) 88px 48px 30px; gap: 2px; } .qty-btn { min-width: 22px; } .remove-btn { width: 30px; } }
+@media print {
+  body * { visibility: hidden !important; }
+  #receiptModal, #receiptModal * { visibility: visible !important; }
+  #receiptModal { position: absolute; inset: 0; display: block !important; padding: 0; background: #fff; color: #111; }
+  #receiptModal .modal-content { width: 100%; max-width: none; max-height: none; overflow: visible; padding: 20px; color: #111; background: #fff; border-radius: 0; box-shadow: none; }
+  #receiptPrintBtn, #newOrderBtn { display: none !important; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }

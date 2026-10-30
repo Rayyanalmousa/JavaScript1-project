@@ -112,10 +112,10 @@
               </button>
               <button
                 class="category-btn"
-                data-category="vegetables"
+                data-category="Vegetables"
                 type="button"
               >
-                🥗 vegetables
+                🥗 Vegetables
               </button>
               <button class="category-btn" data-category="Dairy" type="button">
                 🥛 Dairy
@@ -189,14 +189,14 @@
                 <button class="add-btn" data-id="8" type="button">+ Add</button>
               </article>
 
-              <article class="product-card" data-category="vegetables">
+              <article class="product-card" data-category="Vegetables">
                 <div class="product-visual tomato">🍅</div>
                 <h3>Tomato</h3>
                 <p class="product-price">$0.60 <small>/ pc</small></p>
                 <button class="add-btn" data-id="9" type="button">+ Add</button>
               </article>
 
-              <article class="product-card" data-category="vegetables">
+              <article class="product-card" data-category="Vegetables">
                 <div class="product-visual potato">🥔</div>
                 <h3>Potato</h3>
                 <p class="product-price">$0.40 <small>/ pc</small></p>
@@ -235,6 +235,9 @@
               </button>
               <button id="viewBtn" class="secondary-btn" type="button">
                 Compact View
+              </button>
+              <button id="darkModeBtn" class="secondary-btn" type="button" aria-pressed="false">
+                Dark Mode
               </button>
             </div>
           </section>
@@ -343,9 +346,22 @@
 
         <div id="receiptContent"></div>
 
+        <button id="receiptPrintBtn" class="secondary-btn" type="button">
+          Print Receipt
+        </button>
         <button id="newOrderBtn" class="pay-btn" type="button">
           Start New Order
         </button>
+      </div>
+    </div>
+
+    <!-- CLEAR ORDER CONFIRMATION -->
+    <div class="modal hidden" id="clearConfirmModal">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="clearConfirmTitle">
+        <h2 id="clearConfirmTitle">Clear this order?</h2>
+        <p>This removes all products from the current order.</p>
+        <button id="confirmClearBtn" class="clear-btn" type="button">Clear Order</button>
+        <button id="cancelClearBtn" class="secondary-btn" type="button">Keep Order</button>
       </div>
     </div>
 
