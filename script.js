@@ -217,7 +217,7 @@ function displayProducts() {
 }
 
 /*
-OLD CODE:
+
 
 const count = cart.reduce(
   (sum, item) => sum + item.quantity, 0
@@ -387,7 +387,7 @@ function animateProductToCart(id, sourceButton) {
 }
 
 /*
-OLD CODE USING find():
+
 
 const product = products.find(
   (item) => item.id === Number(id)
@@ -433,7 +433,7 @@ function addToCart(id, sourceButton) {
     existing.quantity += 1;
   } else {
     /*
-    OLD CODE:
+
 
     cart.push({ ...product, quantity: 1 });
     */
@@ -508,7 +508,7 @@ cartItems.addEventListener("click", (event) => {
 
   if (button.dataset.action === "remove" || item.quantity <= 0) {
     /*
-    OLD CODE:
+
 
     cart = cart.filter((entry) => entry.id !== item.id);
     */
@@ -537,7 +537,7 @@ document.getElementById("categories").addEventListener("click", (event) => {
   activeCategory = button.dataset.category;
 
   /*
-  OLD CODE:
+ using es6 favourite method
 
   document.querySelectorAll(".category-btn").forEach(
     (item) => item.classList.toggle("active", item === button)
@@ -670,7 +670,7 @@ document.getElementById("saveCustomBtn").addEventListener("click", () => {
   activeCategory = "All";
 
   /*
-  OLD CODE USING forEach():
+
 
   document.querySelectorAll(".category-btn").forEach(
     (item) => item.classList.toggle(
