@@ -223,7 +223,7 @@ body.dark-mode .product-visual { background: linear-gradient(140deg, #40574a, #4
  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .product-card { padding: 9px; }
  .product-visual { height: 82px; font-size: 43px; } .product-card h3 { font-size: 14px; } .product-price { font-size: 17px; } .add-btn { min-height: 42px; }
  .quick-actions { display: flex; flex-wrap: wrap; } .quick-actions > strong { width: 100%; }
- .cart-items { max-height: 330px; min-height: 120px; } .order-columns, .cart-row { grid-template-columns: minmax(0, 1fr) 100px 55px 34px; gap: 4px; }
+ .cart-items { max-height: 330px; min-height: 120px; overflow-x: hidden; } .order-columns, .cart-row { grid-template-columns: minmax(0, 1fr) 100px 55px 34px; gap: 4px; } .cart-row { min-width: 0; } .cart-product-name { overflow-wrap: anywhere; }
  .qty-btn { min-width: 26px; min-height: 38px; } .remove-btn { width: 34px; height: 38px; } .footer { text-align: center; flex-direction: column; }
 }
 @media (max-width: 700px) {
@@ -231,7 +231,7 @@ body.dark-mode .product-visual { background: linear-gradient(140deg, #40574a, #4
   .leaf-scene span:nth-child(n + 5) { display: none; }
   .leaf-scene span:nth-child(-n + 4) { --leaf-duration: 24s; font-size: 22px; opacity: .38; }
 }
-@media (max-width: 380px) { .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .product-visual { height: 64px; font-size: 36px; } .product-card h3 { font-size: 13px; } .product-card { padding: 7px; } .order-columns, .cart-row { grid-template-columns: minmax(0, 1fr) 88px 48px 30px; gap: 2px; } .qty-btn { min-width: 22px; } .remove-btn { width: 30px; } }
+@media (max-width: 380px) { .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .product-visual { height: 64px; font-size: 36px; } .product-card h3 { font-size: 13px; } .product-card { padding: 7px; } .order-header { flex-wrap: wrap; } .order-columns, .cart-row { grid-template-columns: minmax(0, 1fr) 74px 42px 28px; gap: 2px; } .qty-btn { min-width: 22px; } .remove-btn { width: 28px; } }
 @media print {
   body * { visibility: hidden !important; }
   #receiptModal, #receiptModal * { visibility: visible !important; }
