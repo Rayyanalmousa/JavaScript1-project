@@ -132,7 +132,7 @@ const escapeHTML = (value) =>
   );
 
 /*
-OLD CODE:
+
 
 const filtered = products.filter((product) => {
   const matchesCategory =
