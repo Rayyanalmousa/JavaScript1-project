@@ -99,7 +99,7 @@ button:disabled { opacity: .52; cursor: not-allowed; }
 .product-grid.compact .add-btn { grid-column: 2; }
 .quick-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: var(--surface-soft); border: 1px solid #edf1ef; border-radius: 14px; padding: 13px; margin-top: 19px; }
 .quick-actions > strong { margin-right: 3px; }
-.secondary-btn { background: white; color: var(--text); border: 1px solid var(--border); padding: 10px 14px; border-radius: 11px; font-weight: 650; min-height: 42px; transition: background .18s, transform .18s, border-color .18s; }
+.secondary-btn { background: white;  border: 1px solid var(--border); padding: 10px 14px; border-radius: 11px; font-weight: 650; min-height: 42px; transition: background .18s, transform .18s, border-color .18s; }
 .secondary-btn:hover { background: var(--green-light); border-color: #b1dec3; transform: translateY(-1px); }
 .order-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
 .order-header h2 { font-size: 21px; margin: 0 0 7px; }
